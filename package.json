@@ -34,7 +34,6 @@
   ],
   "homepage": "http://mailgun.com",
   "dependencies": {
-    "consolidate": "^0.15.1",
     "form-data": "^4.0.0",
     "mailgun.js": "^3.3.0"
   },

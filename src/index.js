@@ -1,6 +1,5 @@
 const Mailgun = require("mailgun.js");
 const formData = require("form-data");
-const consolidate = require("consolidate");
 const packageData = require("../package.json");
 
 const whitelist = [
@@ -49,19 +48,7 @@ const applyKeyWhitelist = mail =>
     return { ...acc, [targetKey]: mail[key] };
   }, {});
 
-const renderTemplate = async mail => {
-  if (mail.html) {
-    return { template: null, html: mail.html }
-  }
-  if (!mail.template || typeof mail.template === "string" || !mail.template.name || !mail.template.engine) {
-    // either there's no template or the caller is requesting a mailgun template
-    // so let everything through unaltered
-    return {};
-  }
-  const { engine, name, context = {} } = mail.template;
-  const html = await consolidate[engine](name, context);
-  return { template: null, html };
-};
+
 
 const makeMailgunAttachments = (attachments = []) => {
   const [attachment, inline] = attachments.reduce(
